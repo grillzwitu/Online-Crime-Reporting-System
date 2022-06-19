@@ -35,7 +35,7 @@ class CyberCaseCategories(models.Model):
 
 
 class Evidence(models.Model):
-    case = models.ForeignKey('Case', blank = True, null = True)
+    case = models.ForeignKey('Case', models.SET_NULL, blank=True, null=True)
     evidence = models.FileField(upload_to=evidence_upload_location)
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -45,22 +45,22 @@ class Witness(models.Model):
     adhaar_id=models.CharField(max_length=20, blank=False)
     bahmashah_id=models.CharField(max_length=20, blank=True)
     contact=models.CharField(max_length=20, blank=False)
-    case = models.ForeignKey('Case', null=True)
+    case = models.ForeignKey('Case', models.SET_NULL, blank=True, null=True)
     def get_absolute_url(self):
         return reverse("person_detail",kwargs={"id":self.bahmashah_id})    
 
 
 class Case(models.Model):
     title = models.CharField(max_length=80, blank=False)
-    case_categories = models.ForeignKey(CaseCategory,null=True,blank=True)
-    cyber_case_categories = models.ForeignKey(CyberCaseCategories,null=True,blank=True)
+    case_categories = models.ForeignKey(CaseCategory, models.SET_NULL, blank=True, null=True)
+    cyber_case_categories = models.ForeignKey(CyberCaseCategories, models.SET_NULL, blank=True, null=True)
     description = models.TextField()
     reg_from_loc = models.CharField(max_length=255, blank=False)
-    userid = models.ForeignKey(Citizen,null=True)
-    ward_id = models.ForeignKey(Ward)
+    userid = models.ForeignKey(Citizen, models.SET_NULL, blank=True, null=True)
+    ward_id = models.ForeignKey(Ward, models.SET_NULL, blank=True, null=True)
     incident_time = models.DateField()
-    approved=models.NullBooleanField()
-    solved=models.NullBooleanField()
+    approved=models.BooleanField(null=True)
+    solved=models.BooleanField(null=True)
 
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
