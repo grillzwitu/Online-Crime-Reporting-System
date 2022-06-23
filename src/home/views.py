@@ -24,8 +24,8 @@ def gen_uname_pass():
 
 def upload_evidence(request,id=None):
     tip = get_object_or_404(AnonymousTip,pk=id)
-    if not request.user.is_authenticated():
-        raise Http404
+    # if not request.user.is_authenticated():
+    #     raise Http404
 
     username = password = None
     if tip.userid:
@@ -46,8 +46,8 @@ def upload_evidence(request,id=None):
 
 
 def anonymous_tip(request):
-    if request.user.is_authenticated():
-        logout(request)
+    # if request.user.is_authenticated():
+    #     logout(request)
     form = AnonymousTipForm(request.POST or None)
     if form.is_valid():
         upload_evidence = form.cleaned_data.get("upload_evidence")
@@ -97,8 +97,8 @@ def anonymous_user_login(request):
 
 
 def anonymous_dashboard(request):
-    if not request.user.is_authenticated() or not str(request.user.__class__.__name__)=="AnonymousUser":
-        raise Http404
+    # if not request.user.is_authenticated() or not str(request.user.__class__.__name__)=="AnonymousUser":
+    #     raise Http404
     return render(request,'anonymous/dashboard.html',{'citizen':request.user})
 
 
