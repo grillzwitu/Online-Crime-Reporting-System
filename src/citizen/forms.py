@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from django import forms
-from police.views import b
+#from police.views import b
 from .models import Citizen
 
 
@@ -36,9 +36,9 @@ class UsersRegisterForm(forms.ModelForm):
     class Meta:
         model = Citizen
         fields = [
-        'bhamashah',
-            'aadhaar',
-            'bhamashah',
+        # 'bhamashah',
+        #     'aadhaar',
+        #     'bhamashah',
             'contact',
             "email",
             "confirm_email",
@@ -75,21 +75,21 @@ class UsersRegisterForm(forms.ModelForm):
         username = self.cleaned_data.get("username")
         password = self.cleaned_data.get("password")
         confirm_password = self.cleaned_data.get("confirm_password")
-        aadhaar = self.cleaned_data.get("aadhaar")
-        bhamashah = self.cleaned_data.get("bhamashah")
+        # aadhaar = self.cleaned_data.get("aadhaar")
+        # bhamashah = self.cleaned_data.get("bhamashah")
 
 
-        data = b(bhamashah)
-        print(data)
+        # data = b(bhamashah)
+        # print(data)
 
 
 
-        if data is not None and 'AADHAR_ID' in data:
-            if aadhaar != data['AADHAR_ID']:
-                raise forms.ValidationError('Entered Aadhaar ID does not matched with Aadhaar associalted to this Bhamashah Card')
-        else:
-            raise forms.ValidationError(
-                'Unknown Error Occured!')
+        # if data is not None and 'AADHAR_ID' in data:
+        #     if aadhaar != data['AADHAR_ID']:
+        #         raise forms.ValidationError('Entered Aadhaar ID does not matched with Aadhaar associalted to this Bhamashah Card')
+        # else:
+        #     raise forms.ValidationError(
+        #         'Unknown Error Occured!')
 
         if email != confirm_email:
             raise forms.ValidationError("Email must match")
@@ -103,8 +103,8 @@ class UsersRegisterForm(forms.ModelForm):
         if email_qs.exists():
             raise forms.ValidationError("Email is already registered")
 
-        if not aadhaar.isdigit() or not len(aadhaar)==12:
-            raise forms.ValidationError("Invalid Aadhar ID")
+        # if not aadhaar.isdigit() or not len(aadhaar)==12:
+        #     raise forms.ValidationError("Invalid Aadhar ID")
 
         username_qs = Citizen.objects.filter(username=username)
         if username_qs.exists():
