@@ -45,7 +45,6 @@ class Police(User):
     def __str__(self):
         return self.username
 
-
 ward_choice = (
 ('RJ14W01','Mansarovar'),
 ('RJ14W02','Jagatpura'),
@@ -60,8 +59,6 @@ ward_choice = (
 ('RJ14W11','Chandpole'),
 
 )
-
-
 
 
 class Ward(models.Model):
@@ -82,10 +79,6 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.ward
-
-
-
-
 
 
 class Criminal(models.Model):

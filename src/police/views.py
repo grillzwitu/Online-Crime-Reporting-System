@@ -56,7 +56,7 @@ def dashboard(request):
 
 
 #    ward_object=request.user.ward
-
+    cases = Case.objects.all()
     total_cases_count=Case.objects.all().count()
     approved_cases_count=Case.objects.filter(approved=True).count()
     solved_cases_count=Case.objects.filter(solved=True).count()
@@ -109,6 +109,7 @@ def dashboard(request):
 
 
     context={
+    "cases": cases,
     "total_cases_count":total_cases_count,
     "approved_cases_count":approved_cases_count,
     "pending_cases_count":pending_cases_count,
@@ -211,7 +212,7 @@ def case_detail(request,id=None,approved=None):
         print("yppppppppppppppp")
         my_object.save()
     wqset=Witness.objects.filter(case=my_object)
-    ward_object=request.user.ward
+#    ward_object=request.user.ward
     police_id = request.user.id
     files = my_object.evidence_set.all()
     imglist={}
@@ -244,7 +245,7 @@ def case_detail(request,id=None,approved=None):
     
 
     print(others)
-    context={"my_object":my_object,"wqset":wqset, "ward_object": ward_object, "police_id": police_id, "comments": comments,'files':files,"imglist":imglist,"vidlist":vidlist,"audlist":audlist,"doculist":doculist,"others":others}
+    context={"my_object":my_object,"wqset":wqset, "police_id": police_id, "comments": comments,'files':files,"imglist":imglist,"vidlist":vidlist,"audlist":audlist,"doculist":doculist,"others":others}
     return render(request,'police/case_detail.html',context)
 
 def atip_detail(request,id=None):
@@ -255,15 +256,15 @@ def atip_detail(request,id=None):
     context={"my_object":my_object}
     return render(request,'police/atip_detail.html',context)
 
-def b(b_id):
-    try:
-        string="https://apitest.sewadwaar.rajasthan.gov.in/app/live/Service/hofAndMember/ForApp/%s?client_id=%s" % (str(b_id),config('client_id'))
-        with urllib.request.urlopen(string) as url:
-            data=json.loads(url.read().decode())
-        data=data['hof_Details']
-        return data
-    except:
-        return None
+# def b(b_id):
+#     try:
+#         string="https://apitest.sewadwaar.rajasthan.gov.in/app/live/Service/hofAndMember/ForApp/%s?client_id=%s" % (str(b_id),config('client_id'))
+#         with urllib.request.urlopen(string) as url:
+#             data=json.loads(url.read().decode())
+#         data=data['hof_Details']
+#         return data
+#     except:
+#         return None
 
 
 
@@ -308,11 +309,6 @@ def person_detail_view(request,id=None):
 
     }
   
-
-
-
-
-
 
     return render(request,'police/citizen_detail.html',context)
 

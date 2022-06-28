@@ -137,14 +137,64 @@ function rdrawChart(data, options) {
         <div class="col-md-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>Crimes Summary <small></small></h2>
+              <h2>Cases Summary <small></small></h2>
             <!--   <div class="filter">
                 <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
                   <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                   <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
                 </div>
               </div> -->
+
               <div class="clearfix"></div>
+
+              {% for case in cases %}
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="x_panel">
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li style="float: right;"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                    </ul>
+                    <h2><i class="fa fa-forward"></i><a href="{{ case.get_absolute_url }}"> {{ case.title }} </a><!-- <small>Float left</small> --></h2>
+                
+                
+                      
+                          <div class="x_content">
+
+
+                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                              <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Description</a>
+                                </li>
+                                <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Last updated</a>
+                                </li>
+                              
+                              </ul>
+                              <div id="myTabContent" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab" style="min-height: 60px;">
+                                  <p style="font-size: 15px;">{{ case.description }} </p>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                                  <p>{{ case.updated }}</p>
+                                </div>
+                                
+                              </div>
+                            </div>
+                        </div>
+                        <hr />
+                            <div class = "case-footer">
+                              <div class = "col-sm-8 col-md-8 col-xs-4">
+                                 <p><b>Filled on:</b> {{case.timestamp}} <!-- |
+                                <b>Related Incident Occurence Time:</b> {{case.incident_time}}</p> -->
+                              </div>
+                            </div>  
+                          </div>
+
+
+                        </div>
+
+              {% endfor %}
+
             </div>
             <div class="x_content">
               <div class="col-md-9 col-sm-12 col-xs-12">

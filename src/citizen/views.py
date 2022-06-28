@@ -50,7 +50,8 @@ def create_case(request):
     if form.is_valid():
         instance=form.save(commit=False)
         instance.save()
-        return redirect("/citizen/dashboard")
+        return redirect("/")
+        #return redirect("/citizen/dashboard")
     return render(request, "citizen/case.html", {"form": form})
 
 
@@ -142,13 +143,14 @@ def register_view(request):
     form = UsersRegisterForm(request.POST or None)
     print(form)
     if form.is_valid():
-        print('form validated successfully')
-        user = form.save()
-        username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password")
-        user.set_password(password)
-        user.save()
-        new_user = authenticate(username=username, password=password)
-        login(request, new_user)
-        return redirect("/citizen/dashboard")
+        # print('form validated successfully')
+        # user = form.save()
+        # username = form.cleaned_data.get("username")
+        # password = form.cleaned_data.get("password")
+        # user.set_password(password)
+        # user.save()
+        # new_user = authenticate(username=username, password=password)
+        # login(request, new_user, backend='raj_hack.auth_backend.CustomUserModelBackend')
+        # return redirect("/citizen/dashboard")
+        return redirect("/")
     return render(request, "citizen/register.html",{"form" : form,})
